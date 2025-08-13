@@ -102,14 +102,14 @@ export default function Home() {
     setRefreshing(false);
   };
 
-  const filteredServices = services.filter(service => {
+  const favoriteServices = services.filter(service => service.is_favorite);
+  const nonFavoriteServices = services.filter(service => !service.is_favorite);
+
+  const filteredAllServices = nonFavoriteServices.filter(service => {
     const matchesSearch = service.name.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesStatus = statusFilter === 'all' || service.status === statusFilter;
     return matchesSearch && matchesStatus;
   });
-
-  const favoriteServices = filteredServices.filter(service => service.is_favorite);
-  const allServices = filteredServices.filter(service => !service.is_favorite);
 
   const getStatusCounts = () => {
     const counts = { active: 0, inactive: 0, failed: 0, activating: 0, deactivating: 0 };
@@ -172,31 +172,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Search and Filters */}
-        <div className="flex flex-col md:flex-row gap-4 mb-6">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-            <Input
-              type="search"
-              placeholder="Search for services..."
-              className="pl-10"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
-          <div className="flex gap-2">
-            <select
-              value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value)}
-              className="px-3 py-2 border border-input rounded-md bg-background"
-            >
-              <option value="all">All Status</option>
-              <option value="active">Active</option>
-              <option value="inactive">Inactive</option>
-              <option value="failed">Failed</option>
-            </select>
-          </div>
-        </div>
+        
 
         {loading ? (
           <div className="flex items-center justify-center py-12">
@@ -227,6 +203,32 @@ export default function Home() {
               </div>
             )}
 
+        {/* Search and Filters */}
+        <div className="flex flex-col md:flex-row gap-4 mb-6">
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+            <Input
+              type="search"
+              placeholder="Search for services..."
+              className="pl-10"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
+          <div className="flex gap-2">
+            <select
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value)}
+              className="px-3 py-2 border border-input rounded-md bg-background"
+            >
+              <option value="all">All Status</option>
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+              <option value="failed">Failed</option>
+            </select>
+          </div>
+        </div>
+
             {/* All Services Toggle */}
             <div className="text-center mb-6">
               <Button 
@@ -243,7 +245,7 @@ export default function Home() {
               <div>
                 <h2 className="text-2xl font-bold mb-4">All Services</h2>
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                  {allServices.map((service) => (
+                  {filteredAllServices.map((service) => (
                     <ServiceCard
                       key={service.id}
                       service={service}

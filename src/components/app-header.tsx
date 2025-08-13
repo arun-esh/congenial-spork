@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { PlusCircle, Rocket } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Rocket } from "lucide-react";
 
 export default function AppHeader() {
   return (
@@ -13,12 +12,6 @@ export default function AppHeader() {
           <Rocket className="h-6 w-6 text-primary" />
           <h1 className="text-xl font-bold tracking-tight">AppPilot</h1>
         </Link>
-        <Button asChild>
-          <Link href="/add-service">
-            <PlusCircle className="mr-2 h-4 w-4" />
-            Add Service
-          </Link>
-        </Button>
       </nav>
     </header>
   );

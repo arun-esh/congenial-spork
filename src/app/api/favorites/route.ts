@@ -8,7 +8,7 @@ async function readFavorites(): Promise<string[]> {
   try {
     const data = await fs.readFile(FAVORITES_FILE, 'utf-8');
     return JSON.parse(data);
-  } catch (error) {
+  } catch (error: any) {
     if (error.code === 'ENOENT') {
       return [];
     }

@@ -1,0 +1,8 @@
+{
+  "mcp-server": "8080",
+  "mcp-service": "8081",
+  "casaos-app-management": "8082",
+  "casaos-gateway": "8083",
+  "casaos-local-storage": "8084",
+  "test-service": "9999"
+}

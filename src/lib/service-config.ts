@@ -33,7 +33,6 @@ export const SERVICE_CONFIG = {
     'firewalld',
     'iptables',
     'auditd',
-    'apparmor',
     'apport',
     'apt',
     'snapd',
