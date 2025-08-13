@@ -1,0 +1,36 @@
+# Sudoers configuration for appserver user to manage services
+# Add this to /etc/sudoers.d/appserver-services or use visudo
+
+# Allow appserver user to run specific systemctl commands without password
+# Format: username ALL=(ALL) NOPASSWD: command
+appserver ALL=(ALL) NOPASSWD: /bin/systemctl start mcp-server.service
+appserver ALL=(ALL) NOPASSWD: /bin/systemctl stop mcp-server.service
+appserver ALL=(ALL) NOPASSWD: /bin/systemctl restart mcp-server.service
+appserver ALL=(ALL) NOPASSWD: /bin/systemctl status mcp-server.service
+appserver ALL=(ALL) NOPASSWD: /bin/systemctl is-active mcp-server.service
+appserver ALL=(ALL) NOPASSWD: /bin/systemctl show -p PIDs --value mcp-server.service
+
+# Add more custom services as needed
+appserver ALL=(ALL) NOPASSWD: /bin/systemctl start mcp-service.service
+appserver ALL=(ALL) NOPASSWD: /bin/systemctl stop mcp-service.service
+appserver ALL=(ALL) NOPASSWD: /bin/systemctl restart mcp-service.service
+appserver ALL=(ALL) NOPASSWD: /bin/systemctl status mcp-service.service
+appserver ALL=(ALL) NOPASSWD: /bin/systemctl is-active mcp-service.service
+appserver ALL=(ALL) NOPASSWD: /bin/systemctl show -p PIDs --value mcp-service.service
+
+# Allow listing services (read-only)
+appserver ALL=(ALL) NOPASSWD: /bin/systemctl list-units --type=service --all --no-pager --plain
+
+# Alternative: Allow all systemctl commands for custom services only (more secure)
+# appserver ALL=(ALL) NOPASSWD: /bin/systemctl start *.service
+# appserver ALL=(ALL) NOPASSWD: /bin/systemctl stop *.service
+# appserver ALL=(ALL) NOPASSWD: /bin/systemctl restart *.service
+# appserver ALL=(ALL) NOPASSWD: /bin/systemctl status *.service
+# appserver ALL=(ALL) NOPASSWD: /bin/systemctl is-active *.service
+# appserver ALL=(ALL) NOPASSWD: /bin/systemctl show -p PIDs --value *.service
+
+# Note: Replace 'appserver' with your actual username
+# After adding this file, restart the application for changes to take effect
+# 
+# To apply: sudo visudo -f /etc/sudoers.d/appserver-services
+# Or: sudo cp sudoers-config.txt /etc/sudoers.d/appserver-services && sudo chmod 440 /etc/sudoers.d/appserver-services

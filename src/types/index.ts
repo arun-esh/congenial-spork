@@ -1,4 +1,4 @@
-export type ServiceStatus = "running" | "stopped" | "failed";
+export type ServiceStatus = "active" | "inactive" | "failed" | "activating" | "deactivating";
 
 export interface LogEntry {
   id: number;
@@ -10,13 +10,24 @@ export interface LogEntry {
 export interface Service {
   id: string;
   name: string;
-  description: string;
-  scriptPath: string;
-  port: number;
-  tags: string[];
+  description?: string;
   status: ServiceStatus;
-  uptime: string;
-  cpuUsage: string;
-  memoryUsage: string;
-  logs: LogEntry[];
+  port: string;
+  is_favorite: boolean;
+  canControl?: boolean;
+  lastAction?: string;
+  lastActionTime?: string;
+  isUserService?: boolean;
+}
+
+export interface ServiceAction {
+  action: 'start' | 'stop' | 'restart';
+  serviceName: string;
+}
+
+export interface ServiceActionResponse {
+  status: 'success' | 'error';
+  message: string;
+  newStatus?: ServiceStatus;
+  error?: string;
 }
