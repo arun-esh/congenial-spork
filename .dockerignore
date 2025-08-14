@@ -1,0 +1,7 @@
+# See https://docs.docker.com/engine/reference/builder/#dockerignore-file
+**/node_modules
+**/.next
+npm-debug.log
+README.md
+.git
+.gitignore
